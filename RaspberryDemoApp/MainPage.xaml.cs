@@ -39,32 +39,32 @@ namespace RaspberryDemoApp
 
         private async void Event_SendMessageToHub(object sender, RoutedEventArgs e)
         {
-            string atr = GetAtr();
+            //string atr = GetAtr();
 
-            if (!string.IsNullOrEmpty(atr))
-            {
-                outputError.Text = atr;
-            }
-            
-            //try
+            //if (!string.IsNullOrEmpty(atr))
             //{
-            //    var telemetryData = new
-            //    {
-            //        deviceId = "Raspberry Test device",
-            //        value = "Hello"
-            //    };
-            //    var messageSTring = JsonConvert.SerializeObject(telemetryData);
-            //    var message = new Message(Encoding.ASCII.GetBytes(messageSTring));
-
-            //    await deviceClient.SendEventAsync(message);
-            //    outputError.Text = string.Format("{0}: Message succesfully send", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"));
-            //} 
-            //catch(Exception ex)
-            //{
-            //    outputError.Text = ex.Message;
-            //    outputError.Text = outputError.Text + "\n" + ex.StackTrace;
+            //    outputError.Text = atr;
             //}
-            
+
+            try
+            {
+                var telemetryData = new
+                {
+                    deviceId = "Raspberry Test device",
+                    value = "Hello"
+                };
+                var messageSTring = JsonConvert.SerializeObject(telemetryData);
+                var message = new Message(Encoding.ASCII.GetBytes(messageSTring));
+
+                await deviceClient.SendEventAsync(message);
+                outputError.Text = string.Format("{0}: Message succesfully send", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"));
+            }
+            catch (Exception ex)
+            {
+                outputError.Text = ex.Message;
+                outputError.Text = outputError.Text + "\n" + ex.StackTrace;
+            }
+
         }
 
         private string GetAtr()
